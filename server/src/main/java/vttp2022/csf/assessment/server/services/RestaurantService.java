@@ -1,7 +1,10 @@
 package vttp2022.csf.assessment.server.services;
 
+import java.lang.StackWalker.Option;
+import java.util.List;
 import java.util.Optional;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,27 +37,32 @@ public class RestaurantService {
 	// Use the following method to get a list of restaurants by cuisine
 	// You can add any parameters (if any) and the return type 
 	// DO NOT CHNAGE THE METHOD'S NAME
-	// public ??? getRestaurantsByCuisine(???) {
-	// 	// Implmementation in here
-		
-	// }
+	public Optional<List<Document>> getRestaurantsByCuisine(String cuisineType) {
+
+		Optional<List<Document>> restaurantByCuisine = restaurantRepo.getRestaurantsByCuisine(cuisineType);
+
+		return restaurantByCuisine;
+	}
 
 	// TODO Task 4
 	// Use this method to find a specific restaurant
 	// You can add any parameters (if any) 
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
-	// public Optional<Restaurant> getRestaurant(???) {
-	// 	// Implmementation in here
+	public Optional<List<Document>> getRestaurant(String restaurantName) {
+
+		Optional<List<Document>> restaurants = restaurantRepo.getRestaurant(restaurantName);
+
+		return restaurants;
 		
-	// }
+	}
 
 	// TODO Task 5
 	// Use this method to insert a comment into the restaurant database
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
 	public void addComment(Comment comment) {
-		// Implmementation in here
-		
+		restaurantRepo.addComment(comment);
 	}
+
 	//
 	// You may add other methods to this class
 }

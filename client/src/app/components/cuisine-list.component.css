@@ -1,3 +1,7 @@
+h1, h2, h3, h4, h5 {
+  text-align: center;
+}
+
 .cuisines {
   margin: 0 0 2em 0;
   list-style-type: none;

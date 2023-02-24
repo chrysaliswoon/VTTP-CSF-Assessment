@@ -10,4 +10,7 @@ export class RestaurantDetailsComponent {
 	// TODO Task 4 and Task 5
 	// For View 3
 
+  submit() {
+    
+  }
 }

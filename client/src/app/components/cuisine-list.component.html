@@ -3,9 +3,9 @@
 
 <ul class="cuisines">
   
-  <li *ngFor="let cuisineList of cuisines" [value]="cuisineList" >
+  <li *ngFor="let c of cuisines" [value]="c" >
     <a [routerLink]="['/restaurants']">
-      <span class="badge"></span>{{ cuisineList}}
+      <span class="badge"></span>{{ c }}
     </a>
   </li>
 </ul>

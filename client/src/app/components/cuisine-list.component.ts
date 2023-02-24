@@ -12,6 +12,7 @@ import { RestaurantService } from '../restaurant-service';
 })
 export class CuisineListComponent implements OnInit{
 
+
 	// TODO Task 2
 	// For View 1
   cuisines: string[] = ['Afghan', 'African', 'American', 'Armenian', 'Asian'];
@@ -47,5 +48,7 @@ export class CuisineListComponent implements OnInit{
       })
 
   }
+
+
 
 }

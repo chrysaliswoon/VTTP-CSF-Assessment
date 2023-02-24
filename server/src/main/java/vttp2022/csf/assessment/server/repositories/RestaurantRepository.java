@@ -1,10 +1,13 @@
 package vttp2022.csf.assessment.server.repositories;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -30,7 +33,7 @@ public class RestaurantRepository {
 	//  
 
 	/*
-	 * csf.restaurants.distinct("cuisine")
+	 * db.getCollection("restaurants").distinct("cuisine")
 	 */
 	public Optional<Restaurant> getCuisines(String searchQuery) {
 
@@ -51,10 +54,22 @@ public class RestaurantRepository {
 	// DO NOT CHNAGE THE METHOD'S NAME
 	// Write the Mongo native query above for this method
 	//  
-	// public ??? getRestaurantsByCuisine(???) {
-	// 	// Implmementation in here
 
-	// }
+
+	/*
+	 * db.getCollection("restaurants").find({cuisine: "Bakery"}).sort({name:1})
+	 */
+	public Optional<List<Document>> getRestaurantsByCuisine(String cuisineType) {
+
+		Sort sort = Sort.by(Sort.Direction.ASC, "name");
+		Criteria criteria = Criteria.where("cuisine").is(cuisineType);
+		Query query = Query.query(criteria);
+		
+		List<Document> result = template.find(query, Document.class, C_COLLECTION);
+		
+		return Optional.of(result);
+
+	}
 
 	// TODO Task 4
 	// Use this method to find a specific restaurant
@@ -62,21 +77,44 @@ public class RestaurantRepository {
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
 	// Write the Mongo native query above for this method
 	//  
-	// public Optional<Restaurant> getRestaurant(???) {
-	// 	// Implmementation in here
+
+	/*
+	 * db.getCollection("restaurants").find({name: "Caffe Roma"})
+	 */
+	public Optional<List<Document>> getRestaurant(String restaurantName) {
+
+		Criteria criteria = Criteria.where("name").is(restaurantName);
+		Query query = Query.query(criteria);
 		
-	// }
+		List<Document> result = template.find(query, Document.class, C_COLLECTION);
+		
+		return Optional.of(result);
+		
+	}
 
 	// TODO Task 5
 	// Use this method to insert a comment into the restaurant database
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
 	// Write the Mongo native query above for this method
 	//  
-	// public void addComment(Comment comment) {
-	// 	// Implmementation in here
-		
-	// }
-	
-	// You may add other methods to this class
 
+	/*
+	*   db.getCollection("restaurants").insert({
+		name: "Caffe Roma",
+		comment: ["Brews aromatic coffee", "Has long waiting time"]
+		})
+	 */
+	public void addComment(Comment comment) {
+
+		Document comments = new Document();
+		comments.put("name", comment.getName());
+		comments.put("rating", comment.getRating());
+		comments.put("restaurantId", comment.getRestaurantId());
+		comments.put("text", comment.getText());
+
+
+		Document inserted = template.insert(comments, "comment");
+
+
+}
 }

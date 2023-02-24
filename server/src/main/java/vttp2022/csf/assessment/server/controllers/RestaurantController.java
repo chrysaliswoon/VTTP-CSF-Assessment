@@ -20,6 +20,12 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
+    /*
+     * Task 2
+     * GET /api/cuisines
+     * Accept: application/json
+     */
+
     @GetMapping(path = "/cuisines")
     @ResponseBody
     public ResponseEntity<String> getCuisines() {
@@ -29,7 +35,28 @@ public class RestaurantController {
             return new ResponseEntity<String>("User login failed!", HttpStatus.NOT_FOUND);
             
         return new ResponseEntity<String>(opt.toString(), HttpStatus.OK);
-        }
+    }
+
+    /*
+     * Task 3
+     * GET /api/{cuisine}/restaurants
+     * Accept: application/json
+     */
+
+
+    /*
+     * Task 4
+     * GET /map?lat=<latitude>&lng=<longitude>
+     * Accept: image/png
+     */
+
+    /*
+     * Task 5
+     * POST /api/comments
+     * Content-Type: application/json
+     * Accept: application/json
+     */
+
 
 
     
