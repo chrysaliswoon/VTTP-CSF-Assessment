@@ -1,11 +1,17 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { first, firstValueFrom } from 'rxjs'
+import { first, firstValueFrom, Subject } from 'rxjs'
 import { Restaurant, Comment } from './models'
 
 
+const BACKEND = 'https://csf-assessment.up.railway.app'
+
 @Injectable()
 export class RestaurantService {
+
+	onSearchResults = new Subject<Restaurant[]>()
+	onSearchQuery = new Subject<string>()
+
 
 	constructor(private http: HttpClient){}
 
@@ -13,12 +19,21 @@ export class RestaurantService {
 	// Use the following method to get a list of cuisines
 	// You can add any parameters (if any) and the return type 
 	// DO NOT CHNAGE THE METHOD'S NAME
-	public getCuisineList(): Promise<Restaurant[]> {
+	// public getCuisineList(): Promise<Restaurant[]> {
 		
+	// 	return firstValueFrom(
+	// 		this.http.get<Restaurant[]>('/api/cuisines')
+	// 	  )
+	// }
+	public getCuisineList(): Promise<Restaurant[]> {
 		return firstValueFrom(
-			this.http.get<Restaurant[]>('/api/cuisines')
-		  )
-	}
+		  this.http.get<Restaurant[]>(`${BACKEND}/api/cuisines`)
+		).then(results => {
+		  this.onSearchResults.next(results)
+		  return results;
+		})
+	  }
+
 
 	// TODO Task 3 
 	// Use the following method to get a list of restaurants by cuisine

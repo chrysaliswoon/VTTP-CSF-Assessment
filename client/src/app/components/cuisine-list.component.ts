@@ -19,14 +19,15 @@ export class CuisineListComponent implements OnInit{
   form!: FormGroup
   selectedCuisine: String = '';
 
+  // cuisines: Restaurant[] = []
+
+
   constructor(private fb: FormBuilder, private restaurantSvc: RestaurantService){}
 
   ngOnInit(): void {
       this.restaurantSvc.getCuisineList()
       this.form = this.createForm()
   }
-
-
 
 	createForm(): FormGroup {
 		return this.fb.group({
