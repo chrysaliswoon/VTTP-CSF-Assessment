@@ -5,12 +5,30 @@
 <img src="" alt="" srcset="">
 
 <h2>Comment</h2>
-<h3>Name: </h3>
-<h3>Rating: </h3>
 
-<div>
-    <textarea id="message"  rows="10" cols="35" ></textarea>
-</div>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <p>
+        <mat-form-field class="example-full-width">
+          <mat-label formControlName="name">Name:</mat-label>
+          <textarea matInput placeholder="Ex. John"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Rating:</mat-label>
+            <mat-select>
+              <mat-option value="one">1</mat-option>
+              <mat-option value="two">2</mat-option>
+              <mat-option value="two">3</mat-option>
+              <mat-option value="two">4</mat-option>
+              <mat-option value="two">5</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </p>
+    
+    <div>
+        <textarea id="message"  rows="10" cols="35" ></textarea>
+    </div>
+    
+    <button mat-raised-button type="button">Submit</button>
+</form>
 
-<button type="button" (click)="submit()">Submit</button>
 

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core'
 import { first, firstValueFrom } from 'rxjs'
 import { Restaurant, Comment } from './models'
 
-const BACKEND = 'http://localhost:8080/api'
 
 @Injectable()
 export class RestaurantService {

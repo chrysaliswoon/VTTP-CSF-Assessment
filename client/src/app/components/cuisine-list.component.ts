@@ -22,6 +22,7 @@ export class CuisineListComponent implements OnInit{
   constructor(private fb: FormBuilder, private restaurantSvc: RestaurantService){}
 
   ngOnInit(): void {
+      this.restaurantSvc.getCuisineList()
       this.form = this.createForm()
   }
 
@@ -38,7 +39,7 @@ export class CuisineListComponent implements OnInit{
 
     const cuisine = this.form.value 
 
-    this.restaurantSvc.getCuisineList(cuisine)
+    this.restaurantSvc.getRestaurantsByCuisine(cuisine)
       .then(response => {
         this.form = this.createForm()
 

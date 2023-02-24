@@ -13,7 +13,6 @@ export class RestaurantCuisineComponent implements OnInit{
 	// TODO Task 3
 	// For View 2
 
-
   form!: FormGroup;
 
   constructor(private fb: FormBuilder, private restaurantSvc: RestaurantService){}
@@ -26,15 +25,22 @@ export class RestaurantCuisineComponent implements OnInit{
 
 createForm(): FormGroup {
   return this.fb.group({
-    
+    cuisine: this.fb.control(''),
   })
 }
 	
 
   processForm() {
+    const cuisine = this.form.value 
+
+    this.restaurantSvc.getRestaurant(cuisine)
+      .then(response => {
+        this.form = this.createForm()
+
+      })
+      .catch(error => {
+        console.error('>>> Error', error)
+      })
   }
 
-  back() {
-    
-  }
 }
