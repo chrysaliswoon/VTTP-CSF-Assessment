@@ -1,17 +1,19 @@
 package vttp2022.csf.assessment.server.repositories;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+
+import com.mongodb.client.DistinctIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 
 import vttp2022.csf.assessment.server.models.Comment;
 import vttp2022.csf.assessment.server.models.Restaurant;
@@ -35,17 +37,19 @@ public class RestaurantRepository {
 	/*
 	 * db.getCollection("restaurants").distinct("cuisine")
 	 */
-	public Optional<Restaurant> getCuisines(String searchQuery) {
+	public List<String> getCuisines() {
 
-		List<String> result = template.findDistinct(new Query(), searchQuery, C_COLLECTION, String.class);
-		if (null == result)
-			return Optional.empty();
+		return template.findDistinct(new Query(),"cuisine",Restaurant.class,String.class);
 
-		Restaurant restaurant = new Restaurant();
-		restaurant.setCuisine(((Document) result).getString("cuisine"));
+		// List<String> result = template.findDistinct(new Query(), searchQuery, C_COLLECTION, String.class);
+		// if (null == result)
+		// 	return Optional.empty();
+
+		// Restaurant restaurant = new Restaurant();
+		// restaurant.setCuisine(((Document) result).getString("cuisine"));
 
 
-		return Optional.of(restaurant);
+		// return Optional.of(restaurant);
 	}
 
 	// TODO Task 3
@@ -59,17 +63,27 @@ public class RestaurantRepository {
 	/*
 	 * db.getCollection("restaurants").find({cuisine: "Bakery"}).sort({name:1})
 	 */
-	public Optional<List<Document>> getRestaurantsByCuisine(String cuisineType) {
+	public List<Restaurant> getRestaurantsByCuisine(String cuisineType) {
 
-		Sort sort = Sort.by(Sort.Direction.ASC, "name");
+		System.out.println("Getting list of restaurants by cuisine from Repository");
+
+
 		Criteria criteria = Criteria.where("cuisine").is(cuisineType);
-		Query query = Query.query(criteria);
-		
-		List<Document> result = template.find(query, Document.class, C_COLLECTION);
-		
-		return Optional.of(result);
+        Query query = Query.query(criteria);
 
-	}
+        return template.find(query, Document.class, C_COLLECTION).stream().map(v -> {return create(v); }).toList();
+
+    }
+
+		// Sort sort = Sort.by(Sort.Direction.ASC, "name");
+		// Criteria criteria = Criteria.where("cuisine").is(cuisineType);
+		// Query query = Query.query(criteria);
+		
+		// List<Document> result = template.find(query, Document.class, C_COLLECTION);
+		
+		// return Optional.of(result);
+
+	
 
 	// TODO Task 4
 	// Use this method to find a specific restaurant
@@ -81,14 +95,13 @@ public class RestaurantRepository {
 	/*
 	 * db.getCollection("restaurants").find({name: "Caffe Roma"})
 	 */
-	public Optional<List<Document>> getRestaurant(String restaurantName) {
+	public List<Restaurant> getRestaurant(String restaurantName) {
 
 		Criteria criteria = Criteria.where("name").is(restaurantName);
 		Query query = Query.query(criteria);
-		
-		List<Document> result = template.find(query, Document.class, C_COLLECTION);
-		
-		return Optional.of(result);
+
+        return template.find(query, Document.class, C_COLLECTION).stream().map(v -> {return create(v); }).toList();
+
 		
 	}
 
@@ -114,7 +127,17 @@ public class RestaurantRepository {
 
 
 		Document inserted = template.insert(comments, "comment");
+	}
+
+	public static Restaurant create(Document doc) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setRestaurantId(doc.getString("_id"));
+        restaurant.setName(doc.getString("name"));
+        restaurant.setCuisine(doc.getString("cuisine"));
+        restaurant.setAddress(doc.getString("address"));
+
+        return restaurant;
+    }
 
 
-}
 }

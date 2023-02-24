@@ -26,9 +26,12 @@ public class RestaurantService {
 	// Use the following method to get a list of cuisines 
 	// You can add any parameters (if any) and the return type 
 	// DO NOT CHANGE THE METHOD'S NAME
-	public Optional<Restaurant> getCuisines(String searchQuery) {
+	public List<String> getCuisines() {
+		System.out.println("Getting list of cuisines from Services");
 
-		Optional <Restaurant> cuisines = restaurantRepo.getCuisines(searchQuery);
+		List<String> cuisines = restaurantRepo.getCuisines();
+
+		System.out.println(cuisines);
 		return cuisines;
 
 	}
@@ -37,22 +40,22 @@ public class RestaurantService {
 	// Use the following method to get a list of restaurants by cuisine
 	// You can add any parameters (if any) and the return type 
 	// DO NOT CHNAGE THE METHOD'S NAME
-	public Optional<List<Document>> getRestaurantsByCuisine(String cuisineType) {
+	public List<Restaurant> getRestaurantsByCuisine(String cuisineType) {
 
-		Optional<List<Document>> restaurantByCuisine = restaurantRepo.getRestaurantsByCuisine(cuisineType);
+		System.out.println("Getting list of restaurants by cuisine from Services");
 
-		return restaurantByCuisine;
+		return restaurantRepo.getRestaurantsByCuisine(cuisineType);
 	}
 
 	// TODO Task 4
 	// Use this method to find a specific restaurant
 	// You can add any parameters (if any) 
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
-	public Optional<List<Document>> getRestaurant(String restaurantName) {
+	public List<Restaurant> getRestaurant(String restaurantName) {
 
-		Optional<List<Document>> restaurants = restaurantRepo.getRestaurant(restaurantName);
+		System.out.println("Getting specific restaurant by cuisine from Services");
 
-		return restaurants;
+		return restaurantRepo.getRestaurant(restaurantName);
 		
 	}
 

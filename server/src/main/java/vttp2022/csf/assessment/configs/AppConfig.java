@@ -17,9 +17,13 @@ public class AppConfig {
 	private String mongoUrl;
 
     @Bean
-	public MongoTemplate createMongoTemplate() {
-		MongoClient client = MongoClients.create(mongoUrl);
-		return new MongoTemplate(client, MongoDatabase);
-	}
+    public MongoClient mongoClient() {
+        return MongoClients.create(mongoUrl);
+    }
+
+    @Bean
+    public MongoTemplate mongoTemplate() {
+        return new MongoTemplate(mongoClient(), MongoDatabase);
+    }
     
 }
