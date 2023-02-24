@@ -1,9 +1,9 @@
 <h2>List of ?? Restaurants</h2>
 <form class="form" [formGroup]="form" (ngSubmit)="processForm()">
 
-<ul class="restaurants">
+<ul class="restaurants" formControlName="restaurant">
   
-  <li *ngFor="let r of restaurants" [value]="r" formControlName="restaurant">
+  <li *ngFor="let r of restaurants" [value]="r" >
     <a [routerLink]="['/restaurant']">
       <span class="badge"></span>{{ r}}
     </a>
