@@ -1,5 +1,7 @@
 package vttp2022.csf.assessment.server.models;
 
+import java.util.List;
+
 // Do not modify this class
 public class Restaurant {
 	

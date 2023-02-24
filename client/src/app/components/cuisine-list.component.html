@@ -1,1 +1,36 @@
-<p>cuisine-list works!</p>
+<h2>List of Cuisines</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="processForm()">
+
+<ul class="cuisines">
+  
+  <li *ngFor="let cuisineList of cuisines" [value]="cuisineList" >
+    <a [routerLink]="['/restaurants']">
+      <span class="badge"></span>{{ cuisineList}}
+    </a>
+  </li>
+</ul>
+
+</form>
+
+
+
+<!-- <mat-toolbar color="primary">
+    <span class="fill-remaining-space"><h1>List of Cuisines</h1></span>
+  </mat-toolbar>
+  
+  <div class="container"> 
+    <form class="form" [formGroup]="form" (ngSubmit)="processForm()">
+        <mat-selection-list #cuisine [multiple]="false" formControlName="selectedCuisine">
+            <mat-list-option *ngFor="let cuisineList of cuisines" [value]="cuisineList" >
+              {{cuisineList}}
+            </mat-list-option>
+          </mat-selection-list>
+
+          <p>
+            Option selected: {{cuisine.selectedOptions.hasValue() ? cuisine.selectedOptions.selected[0].value : 'None'}}
+          </p>
+
+
+    </form>
+  </div>
+   -->

@@ -1,1 +1,15 @@
 TODO: Task 1 - Write the mongo import command here
+
+## To import locally:
+
+mongoimport -hlocalhost --port=27017 -dcsf -crestaurants --jsonArray restaurants.json
+
+## To import to remote:
+
+mongoimport --authenticationDatabase=admin --uri mongodb://mongo:<password>@<mongoHost>:<port number> -dcsf -crestaurants --jsonArray restaurants.json  
+
+Notes: 
+
+- For security reasons, the password, mongohost and port number is not indicated. 
+- Database name = csf
+- Collection name = restaurants

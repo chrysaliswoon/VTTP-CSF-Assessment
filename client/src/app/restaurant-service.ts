@@ -1,13 +1,30 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { firstValueFrom } from 'rxjs'
 import { Restaurant, Comment } from './models'
 
+const BACKEND = 'http://localhost:8080/api'
+
+@Injectable()
 export class RestaurantService {
+
+	url = BACKEND + "/{cuisine}/restaurants"
+
+	constructor(private http: HttpClient){}
 
 	// TODO Task 2 
 	// Use the following method to get a list of cuisines
 	// You can add any parameters (if any) and the return type 
 	// DO NOT CHNAGE THE METHOD'S NAME
-	public getCuisineList(???) {
-		// Implememntation in here
+	public getCuisineList(restaurant: Restaurant): Promise<any> {
+
+		const qs = new HttpParams()
+		.set("cuisine", restaurant.cusisine)
+
+  	const headers = new HttpHeaders()
+	  .set('Content-Type', 'application/x-www-form-urlencoded')
+		
+		return firstValueFrom(this.http.post<any>(this.url, qs.toString(), {headers}))
 
 	}
 
@@ -15,25 +32,25 @@ export class RestaurantService {
 	// Use the following method to get a list of restaurants by cuisine
 	// You can add any parameters (if any) and the return type 
 	// DO NOT CHNAGE THE METHOD'S NAME
-	public getRestaurantsByCuisine(???) {
-		// Implememntation in here
+	// public getRestaurantsByCuisine(???) {
+	// 	// Implememntation in here
 
-	}
+	// }
 	
 	// TODO Task 4
 	// Use this method to find a specific restaurant
 	// You can add any parameters (if any) 
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
-	public getRestaurant(???): Promise<Restaurant> {
-		// Implememntation in here
+	// public getRestaurant(???): Promise<Restaurant> {
+	// 	// Implememntation in here
 
-	}
+	// }
 
 	// TODO Task 5
 	// Use this method to submit a comment
 	// DO NOT CHANGE THE METHOD'S NAME OR SIGNATURE
-	public postComment(comment: Comment): Promise<any> {
-		// Implememntation in here
+	// public postComment(comment: Comment): Promise<any> {
+	// 	// Implememntation in here
 
-	}
+	// }
 }
