@@ -3,7 +3,7 @@
 
 <ul class="restaurants">
   
-  <li *ngFor="let r of restaurants" [value]="r" >
+  <li *ngFor="let r of restaurants" [value]="r" formControlName="restaurant">
     <a [routerLink]="['/restaurant']">
       <span class="badge"></span>{{ r}}
     </a>

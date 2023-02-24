@@ -14,7 +14,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Rating:</mat-label>
-            <mat-select>
+            <mat-select formControlName="rating">
               <mat-option value="one">1</mat-option>
               <mat-option value="two">2</mat-option>
               <mat-option value="two">3</mat-option>
@@ -25,7 +25,7 @@
       </p>
     
     <div>
-        <textarea id="message"  rows="10" cols="35" ></textarea>
+        <textarea id="message"  rows="10" cols="35" formControlName="comment"></textarea>
     </div>
     
     <button mat-raised-button type="button">Submit</button>

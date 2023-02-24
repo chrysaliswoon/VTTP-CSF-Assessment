@@ -24,6 +24,8 @@ export class RestaurantDetailsComponent implements OnInit{
 createForm(): FormGroup {
   return this.fb.group({
     name: this.fb.control(''),
+    rating: this.fb.control(''),
+    comment: this.fb.control(''),
   })
 }
 
@@ -34,7 +36,7 @@ createForm(): FormGroup {
     this.restaurantSvc.postComment(comments)
       .then(response => {
         this.form = this.createForm()
-
+        
       })
       .catch(error => {
         console.error('>>> Error', error)

@@ -25,7 +25,7 @@ export class RestaurantCuisineComponent implements OnInit{
 
 createForm(): FormGroup {
   return this.fb.group({
-    cuisine: this.fb.control(''),
+    restaurant: this.fb.control(''),
   })
 }
 	
